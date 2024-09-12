@@ -1,0 +1,45 @@
+# .github/workflows/ci.yml
+
+name: CI
+
+# This workflow triggers when code is pushed to the main branch
+on:
+  push:
+    branches:
+      - main
+
+# Specify the jobs to run
+jobs:
+  test:
+    # Define the environment to run the tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js to run the tests
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20' # Ensure you use the correct Node version
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run unit tests and generate coverage report
+      - name: Run tests with coverage
+        run: npm run test -- --coverage
+
+      # Step 5: Upload coverage report (optional)
+      - name: Upload code coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: coverage
+
+      # Step 6: Display coverage report in the action logs
+      - name: Display code coverage
+        run: cat ./coverage/lcov-report/index.html # 
