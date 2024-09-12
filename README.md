@@ -1,31 +1,23 @@
-# atlas-react-testing
+# Atlas Music Player
 
-## Resources:
-Watch:
+## Getting Started
 
-- #### What Is React Testing Library?
-- Link: https://www.youtube.com/watch?v=JKOwJUM4_RM
+- Run `npm install` to install dependencies
+- Run `npm run dev` to start the dev server
+- Open `http://localhost:5173` in a browser
 
-#### Read:
+### Important Files/Folders
 
-- #### React Unit Testing
-- Link: https://atlas-jswank.github.io/blog/react-testing/
+- `src`: All javascript/jsx code goes in this directory
+- `src/assets`: Any static assets such as images that are loaded through the javascript files goes here.
+- `index.html`: This is the html file that appears when the dev server starts up.
+- `src/app.jsx`: The is the main app component for the entire app.
 
-#### Tools:
+### Important Commands
 
-- #### Vitest: A test runner that integrates well with vite
-Link:https://vitest.dev
+- `npm run dev`: Starts dev server with Hot Module Reloading on port 5173. Anytime a file changes, the changes will automatocally be reflected in the browser
+- `npm run lint`: Run the lint checker with eslint to check for known linting issues
+- `npm run build`: Outputs the production files into the `dist` folder
 
-- #### Vitest VS Code Plugin: Runs test from the VS Code UI
-Link: https://marketplace.visualstudio.com/items?itemName=vitest.explorer
-
-## Learning Objectives:
-
-- Learn to write snapshot tests
-- Understand how to test react components and hooks
-- Apply mocking and spying to unit tests
-- Learn to generate code coverage reports for unit tests
-
-## Project Overview:
-
-In this project you will be writing unit tests for the music player app you have built. You will explore how to render components in your tests, create snapshot tests, evaluate your test coverage and how to automate your testing in github.
+#### Batch Rename Command (for Multiple Files): 
+find src -name "*.jsx" -exec bash -c 'mv "$0" "${0%.jsx}.tsx"' {} \;
