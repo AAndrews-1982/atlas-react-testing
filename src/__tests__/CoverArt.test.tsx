@@ -1,15 +1,16 @@
+// Test for CoverArt
+
 import { render } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
-import CoverArt from '../CoverArt';
+import { ContextProvider } from "../components/AppContext";
+import { expect, test } from 'vitest';
+import { CoverArt } from '../components/CoverArt';
+import placeholder from "../assets/placeholder.svg";
 
-describe('CoverArt Component', () => {
-  it('should match snapshot with default props', () => {
-    const { asFragment } = render(<CoverArt />);
-    expect(asFragment()).toMatchSnapshot();
-  });
-
-  it('should match snapshot with custom props', () => {
-    const { asFragment } = render(<CoverArt imageUrl="custom-image-url" />);
-    expect(asFragment()).toMatchSnapshot();
-  });
+test("CoverArt renders correctly", () => {
+    const {container} = render(
+        <ContextProvider>
+            <CoverArt />
+        </ContextProvider>
+    );
+    expect(container).toMatchSnapshot();
 });

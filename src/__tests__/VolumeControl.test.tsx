@@ -1,15 +1,17 @@
-import { render } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
-import VolumeControl from '../VolumeControl';
+// Imports for testing
+import { render } from "@testing-library/react";
+import { expect, test } from "vitest";
+import { VolumeControl } from "../components/VolumeControl";
+import { ContextProvider } from "../components/AppContext";
 
-describe('VolumeControl Component', () => {
-  it('should match snapshot with default volume', () => {
-    const { asFragment } = render(<VolumeControl />);
-    expect(asFragment()).toMatchSnapshot();
-  });
+test("VolumeControl renders as expected", () => {
+    // Render the VolumeControl component within the ContextProvider
+    const { asFragment } = render(
+        <ContextProvider>
+            <VolumeControl />
+        </ContextProvider>
+    );
 
-  it('should match snapshot with custom volume level', () => {
-    const { asFragment } = render(<VolumeControl volume={0.5} />);
+    // Compare the rendered output to the snapshot
     expect(asFragment()).toMatchSnapshot();
-  });
 });

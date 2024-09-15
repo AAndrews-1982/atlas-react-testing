@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`CoverArt renders correctly 1`] = `
+<div>
+  <div
+    class="cover-art-container mb-6"
+  >
+    <img
+      alt="Loading Placeholder"
+      class="placeholder-img animate-pulse rounded-md"
+      src="/@fs/Users/altonandrews/Desktop/atlas-react-testing/src/assets/placeholder.svg"
+    />
+  </div>
+</div>
+`;

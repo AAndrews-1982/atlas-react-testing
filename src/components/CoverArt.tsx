@@ -1,4 +1,5 @@
 // Import necessary modules, hooks, and assets
+
 import React, { useContext } from "react";
 import { AppContext } from "./AppContext";
 import placeholderImage from "../assets/placeholder.svg";
@@ -35,4 +36,3 @@ export function CoverArt() {
     </div>
   );
 }
-
