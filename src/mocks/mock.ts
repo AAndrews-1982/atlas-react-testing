@@ -1,36 +1,32 @@
-// src/mocks.ts
 import { setupServer } from 'msw/node';
 import { rest } from 'msw';
 
-// Define mock data for the playlist
-const playlistData = [
+// Mock data representing a sample tracklist
+const mockTrackList = [
   {
-    id: 1,
-    title: 'Painted in Blue',
-    artist: 'Soul Canvas',
-    genre: 'Soul',
-    duration: '5:55',
-    cover: 'https://example-api',
+    id: 101,
+    title: 'Cerulean Dreams',
+    artist: 'Blue Horizon',
+    genre: 'Ambient',
+    duration: '6:45',
+    coverUrl: 'https://example-api/cover1',
   },
   {
-    id: 2,
-    title: 'Tidal Drift',
-    artist: 'Echoes of the Sea',
-    genre: 'Mood',
-    duration: '8:02',
-    cover: 'https://example-api',
+    id: 102,
+    title: 'Whispers in the Wind',
+    artist: 'Nature Tones',
+    genre: 'Chillout',
+    duration: '7:30',
+    coverUrl: 'https://example-api/cover2',
   },
 ];
 
-// Mock API handler for playlist endpoint
-const handlers = [
-  rest.get(
-    'https://example.api',
-    (req, res, ctx) => {
-      return res(ctx.json(playlistData));
-    }
-  ),
+// Handlers to simulate API responses
+const mockApiHandlers = [
+  rest.get('https://api.example.com/playlist', (req, res, ctx) => {
+    return res(ctx.status(200), ctx.json(mockTrackList));
+  }),
 ];
 
-// Set up and export the mock server
-export const server = setupServer(...handlers);
+// Initialize and export the mock API server
+export const mockServer = setupServer(...mockApiHandlers);

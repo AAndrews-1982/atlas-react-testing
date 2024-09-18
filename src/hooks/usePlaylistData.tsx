@@ -1,44 +1,44 @@
-// Import necessary hooks from React
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from 'react';
 
-// Define the type for Song
-type Song = {
-  title: string;
-  artist: string;
-  duration: string;
-  cover: string;
-};
-
-// Custom hook for fetching and managing playlist data
-export function usePlaylistData() {
-  // State hooks for songs, current song index, and loading state
-  const [songs, setSongs] = useState<Song[]>([]);
-  const [currentSong, setCurrentSong] = useState<number>(0);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  // Effect hook for fetching playlist data on component mount
-  useEffect(() => {
-    const fetchSongs = async () => {
-      try {
-        const response = await fetch(
-          "https://raw.githubusercontent.com/atlas-jswank/atlas-music-player-api/main/playlist"
-        );
-        const data = await response.json();
-        setSongs(data);
-      } catch (error) {
-        console.error("Failed to fetch playlist:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchSongs();
-  }, []);
-
-  return {
-    songs,
-    currentSong,
-    setCurrentSong,
-    loading
-  };
+// Song data structure definition
+interface Track {
+    title: string;
+    artist: string;
+    duration: string;
+    coverUrl: string;
 }
+
+// Custom hook for handling playlist data fetching and state management
+export const useTrackList = () => {
+    // State management for track list, currently playing track, and loading status
+    const [trackList, setTrackList] = useState<Track[]>([]);
+    const [activeTrackIndex, setActiveTrackIndex] = useState<number>(0);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
+
+    // Data fetching function wrapped in useCallback for better performance
+    const loadTrackData = useCallback(async () => {
+        try {
+            const result = await fetch(
+                'https://raw.githubusercontent.com/atlas-jswank/atlas-music-player-api/main/playlist'
+            );
+            const tracks = await result.json();
+            setTrackList(tracks);
+        } catch (fetchError) {
+            console.error('Error loading track data:', fetchError);
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
+
+    // useEffect hook to initiate data fetch on mount
+    useEffect(() => {
+        loadTrackData();
+    }, [loadTrackData]);
+
+    return {
+        trackList,
+        activeTrackIndex,
+        setActiveTrackIndex,
+        isLoading
+    };
+};
