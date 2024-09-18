@@ -1,27 +1,24 @@
-// Test for SongTitle Component
+import { render } from '@testing-library/react';
+import { describe, it } from 'vitest';
+import SongTitleComponent from '../components/SongTitle';
+import { AppContextProvider } from '../components/AppContext';
 
-// Imports
-import { render } from "@testing-library/react";
-import { expect, test } from "vitest";
-import { SongTitle } from "../components/SongTitle";
-import { AppContext } from "../components/AppContext";
-
-// Mock Context Provider Data
-const mockContextValue = {
-  songs: [
-    { title: "Test Song", artist: "Test Artist", duration: "3:00", cover: "cover1.png" }
-  ],
-  currentSong: 0,
-  setCurrentSong: () => {} // Mock function
+const testContextData = {
+    playlist: [
+        { title: "Sample Song", artist: "Sample Artist", length: "03:00", artwork: "sample-cover.png" }
+    ],
+    activeTrack: 0,
+    updateCurrentTrack: () => {}  // No-op function for testing
 };
 
-test("SongTitle renders correctly", () => {
-  const { asFragment } = render(
-    <AppContext.Provider value={mockContextValue}>
-      <SongTitle />
-    </AppContext.Provider>
-  );
+describe("SongTitleComponent Tests", () => {
+    it("renders the SongTitle component and checks snapshot", () => {
+        const view = render(
+            <AppContextProvider value={testContextData}>
+                <SongTitleComponent />
+            </AppContextProvider>
+        );
 
-  // Correctly call toMatchSnapshot() on asFragment
-  expect(asFragment()).toMatchSnapshot();
+        expect(view.asFragment()).toMatchSnapshot();
+    });
 });

@@ -1,16 +1,17 @@
-// Test for CoverArt
-
 import { render } from '@testing-library/react';
-import { ContextProvider } from "../components/AppContext";
-import { expect, test } from 'vitest';
-import { CoverArt } from '../components/CoverArt';
-import placeholder from "../assets/placeholder.svg";
+import { describe, it } from 'vitest';
+import CoverArtComponent from '../components/CoverArt';
+import { AppContextProvider } from '../components/AppContext';
+import placeholderImage from '../assets/placeholder.svg';
 
-test("CoverArt renders correctly", () => {
-    const {container} = render(
-        <ContextProvider>
-            <CoverArt />
-        </ContextProvider>
-    );
-    expect(container).toMatchSnapshot();
+describe("CoverArtComponent Rendering", () => {
+    it("should display the CoverArt without crashing", () => {
+        const view = render(
+            <AppContextProvider>
+                <CoverArtComponent />
+            </AppContextProvider>
+        );
+        expect(view.container.firstChild).toBeDefined();
+        expect(view).toMatchSnapshot();
+    });
 });

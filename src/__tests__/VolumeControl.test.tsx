@@ -1,17 +1,16 @@
-// Imports for testing
-import { render } from "@testing-library/react";
-import { expect, test } from "vitest";
-import { VolumeControl } from "../components/VolumeControl";
-import { ContextProvider } from "../components/AppContext";
+import { render } from '@testing-library/react';
+import { describe, it } from 'vitest';
+import VolumeControlComponent from '../components/VolumeControl';
+import { AppContextProvider } from '../components/AppContext';
 
-test("VolumeControl renders as expected", () => {
-    // Render the VolumeControl component within the ContextProvider
-    const { asFragment } = render(
-        <ContextProvider>
-            <VolumeControl />
-        </ContextProvider>
-    );
+describe("VolumeControlComponent Snapshot Test", () => {
+    it("renders VolumeControl and matches snapshot", () => {
+        const renderedOutput = render(
+            <AppContextProvider>
+                <VolumeControlComponent />
+            </AppContextProvider>
+        );
 
-    // Compare the rendered output to the snapshot
-    expect(asFragment()).toMatchSnapshot();
+        expect(renderedOutput.asFragment()).toMatchSnapshot();
+    });
 });

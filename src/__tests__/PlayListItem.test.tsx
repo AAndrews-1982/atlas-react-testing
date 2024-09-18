@@ -1,28 +1,33 @@
-// Import necessary modules and components
-import { render } from "@testing-library/react";
-import { PlayListItem } from "../components/PlayListItem";
-import { AppContext } from "../components/AppContext";
-import { expect, it, vi } from "vitest";
+import { render } from '@testing-library/react';
+import { describe, it } from 'vitest';
+import PlaylistItemComponent from '../components/PlayListItem';
+import { AppContextProvider } from '../components/AppContext';
+import mockCover1 from '../assets/cover1.png';
+import mockCover2 from '../assets/cover2.png';
 
-// Define mock data for the context
-const mockSongs = [
-  { title: "Test Song 1", artist: "Test Artist 1", duration: "3:00", cover: "cover1.png" },
-  { title: "Test Song 2", artist: "Test Artist 2", duration: "4:00", cover: "cover2.png" }
+const fakeSongData = [
+    { title: "Sample Song 1", artist: "Artist One", time: "03:00", artwork: mockCover1 },
+    { title: "Sample Song 2", artist: "Artist Two", time: "04:00", artwork: mockCover2 }
 ];
 
-const mockContextValue = {
-  songs: mockSongs,
-  currentSong: 0,
-  setCurrentSong: vi.fn()
+const fakeContext = {
+    songs: fakeSongData,
+    activeSongIndex: 0,
+    changeCurrentSong: vi.fn()
 };
 
-it("should render the PlayListItem component and match the snapshot", () => {
-  const { asFragment } = render(
-    <AppContext.Provider value={mockContextValue}>
-      <PlayListItem songTitle={mockSongs[0].title} artist={mockSongs[0].artist} playTime={mockSongs[0].duration} />
-    </AppContext.Provider>
-  );
+describe("PlaylistItemComponent Rendering", () => {
+    it("renders a PlayListItem and validates the snapshot", () => {
+        const result = render(
+            <AppContextProvider value={fakeContext}>
+                <PlaylistItemComponent 
+                    songTitle={fakeSongData[0].title} 
+                    artist={fakeSongData[0].artist} 
+                    playTime={fakeSongData[0].time} 
+                />
+            </AppContextProvider>
+        );
 
-  // Verify that the rendered output matches the snapshot
-  expect(asFragment()).toMatchSnapshot();
+        expect(result.asFragment()).toMatchSnapshot();
+    });
 });
